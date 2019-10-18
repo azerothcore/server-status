@@ -4,6 +4,7 @@ This is a simple web application built with Angular2+ and Bootstrap to show the 
 
 It is based on the [AzerothAPI](https://github.com/AzerothJS/AzerothAPI).
 
+![Server Status](https://raw.githubusercontent.com/azerothcore/server-status/master/icon.png)
 
 ### Installation
 
