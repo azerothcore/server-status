@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #263238;
+  color: white;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: rgba(38,50,56, 0.9);
+}
+
+th {
+  color: #fff;
+}
+
+.table-striped tr:hover {
+  color: white;
+  cursor: pointer;
+}
+
+td {
+  font-size: 20px;
+}
+
+.alliance { color: #2196f3; }
+.horde { color: #f44336; }
+.alliance, .horde { font-weight: bold; }
