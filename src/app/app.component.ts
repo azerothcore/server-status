@@ -12,13 +12,7 @@ export class AppComponent implements OnInit {
   constructor(public service: AppService) { }
 
   readonly SERVER_NAME = SERVER_NAME;
-  map = map;
-
-  players: any = [];
-
-  getFact(race: number) {
-    return this.service.getFaction(race);
-  }
+  readonly map = map;
 
   ngOnInit(): void {
     this.service.loadPlayers();

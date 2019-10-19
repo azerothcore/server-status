@@ -22,11 +22,11 @@
           <th class="text-center">Map</th>
         </thead>
         <tbody>
-          <tr *ngFor="let player of service.players" [ngClass]="getFact(player.race)">
+          <tr *ngFor="let player of service.players" [ngClass]="player.faction">
             <td><strong>{{ player.name }}</strong></td>
             <td><img [src]="'assets/class/' + player.class + '.gif'"></td>
             <td><img [src]="'assets/race/' + player.race + '-' + player.gender + '.gif'"></td>
-            <td><img [src]="'assets/' + getFact(player.race) + '_min.png'"></td>
+            <td><img [src]="'assets/' + player.faction + '_min.png'"></td>
             <td><strong>{{ player.level }}</strong></td>
             <td><strong>{{ player.guildName }}</strong></td>
             <td><strong>{{ map[player.zone] }}</strong></td>
