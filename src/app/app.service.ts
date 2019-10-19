@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { API_URL } from 'config';
-import { PlayerType } from './utils/player.type';
 import { Observable } from 'rxjs';
+import { API_URL, PULSE_DAYS } from 'config';
+import { PlayerType } from './utils/player.type';
+import { Pulse } from './utils/pulse.type';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,21 @@ export class AppService {
   get hordeCount()    { return this._hordeCount;    }
   get allianceCount() { return this._allianceCount; }
   get players()       { return this._players;       }
+  get accounts()      { return this._accounts;      }
+  get IPs()           { return this._IPs;           }
 
+  private _accounts = 0;
+  private _IPs = 0;
   private _hordeCount = 0;
   private _allianceCount = 0;
   private _players: PlayerType[] = [];
 
   private getPlayers(): Observable<PlayerType[]> {
     return this.http.get<PlayerType[]>(API_URL + '/characters/online');
+  }
+
+  private getAccounts(): Observable<Pulse> {
+    return this.http.get<Pulse>(API_URL + '/auth/pulse/' + PULSE_DAYS);
   }
 
   loadPlayers() {
@@ -32,6 +41,18 @@ export class AppService {
       }
 
     });
+  }
+
+  loadPulse() {
+    return this.getAccounts().subscribe((data) => {
+      this._accounts = data[0].accounts;
+      this._IPs = data[0].IPs;
+    });
+  }
+
+  init() {
+    this.loadPlayers();
+    this.loadPulse();
   }
 
   private getFaction(race: number): string {

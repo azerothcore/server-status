@@ -3,6 +3,7 @@
   <br>
 
   <div *ngIf="service.players.length > 0">
+    <p class="h6 text-muted"><strong>{{ service.accounts }}</strong> active accounts from <strong>{{ service.IPs }}</strong> different IPs in last <strong>{{ service.pulseTime }}</strong> days</p>
     <p class="lead h4">There are {{ service.players.length }} players online</p>
     <p class="h4">
       <img src="assets/alliance_medium.png">

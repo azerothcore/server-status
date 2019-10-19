@@ -16,7 +16,7 @@ describe('AppComponent', () => {
   it('onInit should work correctly', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    const loadPlayersSpy = spyOn(TestBed.get(AppService), 'loadPlayers');
+    const loadPlayersSpy = spyOn(TestBed.get(AppService), 'init');
     expect(app).toBeTruthy();
 
     fixture.detectChanges();

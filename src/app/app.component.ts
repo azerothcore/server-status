@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   readonly map = map;
 
   ngOnInit(): void {
-    this.service.loadPlayers();
+    this.service.init();
   }
 
 }
