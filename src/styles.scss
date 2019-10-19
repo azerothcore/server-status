@@ -5,4 +5,11 @@
 .alliance td { color: #1A67F4; }
 .horde td { color: #CD0A0E; }
 
-th { color: #fff; }
+th {
+  color: #fff;
+  background-color: rgba(255, 255, 255, .1);
+}
+
+table tr:nth-child(2n) {
+  background-color: rgba(255, 255, 255, .1);
+}
