@@ -35,6 +35,9 @@
       </table>
     </div>
   </div>
+  <div *ngIf="!(service.players.length > 0)">
+    No online players.
+  </div>
   <br>
   <!-- I worked for free to build this software, please do not remove the credit! -->
   <p class="small">Designed by <a target="_blank" href="https://github.com/FrancescoBorzi/">ShinDarth</a> && <a target="_blank" href="https://github.com/Helias/">Helias</a></p>

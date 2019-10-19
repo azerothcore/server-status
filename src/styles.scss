@@ -1,25 +1,8 @@
-body {
-  background-color: #263238;
-  color: white;
-}
+@import "~bootswatch/dist/cyborg/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/cyborg/bootswatch";
 
-.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-  background-color: rgba(38,50,56, 0.9);
-}
+.alliance td { color: #1A67F4; }
+.horde td { color: #CD0A0E; }
 
-th {
-  color: #fff;
-}
-
-.table-striped tr:hover {
-  color: white;
-  cursor: pointer;
-}
-
-td {
-  font-size: 20px;
-}
-
-.alliance { color: #2196f3; }
-.horde { color: #f44336; }
-.alliance, .horde { font-weight: bold; }
+th { color: #fff; }
