@@ -38,7 +38,7 @@ describe('AppService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('getFaction() should work correctyl', () => {
+  it('getFaction() should work correctly', () => {
     const service: AppService = TestBed.get(AppService);
 
     const horde = [2, 5, 6, 8, 9, 10];
@@ -61,7 +61,7 @@ describe('AppService', () => {
     expect(service['getFaction'](13)).toBe('');
   });
 
-  it('getPlayers() and loadPlayers() should work correctyl', () => {
+  it('getPlayers() and loadPlayers() should work correctly', () => {
     const service: AppService = TestBed.get(AppService);
     const mockData: PlayerType[] = [{
       guid: 1,
@@ -91,7 +91,7 @@ describe('AppService', () => {
     expect(service.players).toEqual(mockData);
   });
 
-  it('getPulse() and loadPulse() should work correctyl', () => {
+  it('getPulse() and loadPulse() should work correctly', () => {
     const service: AppService = TestBed.get(AppService);
     const mockData: Pulse = {
       accounts: 3,
