@@ -2,9 +2,9 @@
   <p class="h2">{{ SERVER_NAME }} Server Status</p>
   <br>
 
-  <div *ngIf="service.players.length > 0">
-    <p class="h6 text-muted"><strong>{{ service.accounts }}</strong> active accounts from <strong>{{ service.IPs }}</strong> different IPs in last <strong>{{ service.pulseTime }}</strong> days</p>
-    <p class="lead h4">There are {{ service.players.length }} players online</p>
+  <div *ngIf="(service.players | async) as players">
+    <p class="h6 text-muted" *ngIf="(service.pulse | async) as pulse"><strong>{{ pulse[0].accounts }}</strong> active accounts from <strong>{{ pulse[0].IPs }}</strong> different IPs in last <strong>{{ PULSE }}</strong> days</p>
+    <p class="lead h4">There are {{ players.length }} players online</p>
     <p class="h4">
       <img src="assets/alliance_medium.png">
       {{ service.allianceCount }} - {{ service.hordeCount }}
@@ -23,7 +23,7 @@
           <th class="text-center">Map</th>
         </thead>
         <tbody>
-          <tr *ngFor="let player of service.players" [ngClass]="player.faction">
+          <tr *ngFor="let player of players" [ngClass]="player.faction">
             <td><strong>{{ player.name }}</strong></td>
             <td><img [src]="'assets/class/' + player.class + '.gif'"></td>
             <td><img [src]="'assets/race/' + player.race + '-' + player.gender + '.gif'"></td>
@@ -35,9 +35,6 @@
         </tbody>
       </table>
     </div>
-  </div>
-  <div *ngIf="!(service.players.length > 0)">
-    No online players.
   </div>
   <br>
   <!-- I worked for free to build this software, please do not remove the credit! -->

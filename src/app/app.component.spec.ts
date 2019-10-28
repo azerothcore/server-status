@@ -1,28 +1,21 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AppService } from './app.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientTestingModule],
       declarations: [
         AppComponent
       ],
     }).compileComponents();
   }));
 
-  it('onInit should work correctly', () => {
+  it('should create correctly', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    const loadPlayersSpy = spyOn(TestBed.get(AppService), 'init');
     expect(app).toBeTruthy();
-
-    fixture.detectChanges();
-
-    expect(loadPlayersSpy).toHaveBeenCalled();
   });
-
 
 });

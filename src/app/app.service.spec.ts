@@ -1,9 +1,7 @@
 import { TestBed, async, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import Spy = jasmine.Spy;
 
 import { AppService } from './app.service';
-import { HttpClientModule } from '@angular/common/http';
 import { PlayerType } from './utils/player.type';
 import { API_URL, PULSE_DAYS } from 'config';
 import { Pulse } from './utils/pulse.type';
@@ -15,7 +13,6 @@ describe('AppService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpClientModule,
         HttpClientTestingModule,
       ],
       declarations: [],
@@ -61,7 +58,7 @@ describe('AppService', () => {
     expect(service['getFaction'](13)).toBe('');
   });
 
-  it('getPlayers() and loadPlayers() should work correctly', () => {
+  it('players observable should work correctly', () => {
     const service: AppService = TestBed.get(AppService);
     const mockData: PlayerType[] = [{
       guid: 1,
@@ -74,51 +71,35 @@ describe('AppService', () => {
       instance_id: 0,
       zone: 876,
       guildId: 1,
-      guildName: 'AzerothCore',
-      faction: ''
+      guildName: 'AzerothCore'
     }];
 
-    expect(service.players).toEqual([]);
+    mockData[0].faction = 'alliance';
 
-    service['loadPlayers']();
+    service.players.subscribe((data) => {
+      expect(data).toEqual(mockData);
+    });
 
     const req = httpMock.expectOne(`${API_URL}/characters/online`);
     expect(req.request.method).toBe('GET');
     req.flush(mockData);
-
-    mockData[0].faction = 'alliance';
-
-    expect(service.players).toEqual(mockData);
   });
 
-  it('getPulse() and loadPulse() should work correctly', () => {
+  it('pulse observable should work correctly', () => {
     const service: AppService = TestBed.get(AppService);
     const mockData: Pulse = {
       accounts: 3,
       IPs: 1
     };
 
-    expect(service.accounts).toBe(0);
-    expect(service.IPs).toBe(0);
-
-    service['loadPulse']();
+    service.pulse.subscribe((data) => {
+      expect(data).toEqual(mockData);
+    });
 
     const req = httpMock.expectOne(`${API_URL}/auth/pulse/${PULSE_DAYS}`);
     expect(req.request.method).toBe('GET');
-    req.flush([mockData]);
+    req.flush(mockData);
 
-    expect(service.accounts).toBe(mockData.accounts);
-    expect(service.IPs).toBe(mockData.IPs);
   });
 
-  it('init() should work correctly', () => {
-    const service = TestBed.get(AppService);
-    const loadPlayersSpy: Spy = spyOn(service, 'loadPlayers');
-    const loadPulseSpy: Spy = spyOn(service, 'loadPulse');
-
-    service.init();
-
-    expect(loadPlayersSpy).toHaveBeenCalled();
-    expect(loadPulseSpy).toHaveBeenCalled();
-  });
 });

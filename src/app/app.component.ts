@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
-import { SERVER_NAME } from 'config';
+import { SERVER_NAME, PULSE_DAYS } from 'config';
 import { map } from './utils/zone';
 
 @Component({
@@ -8,14 +8,11 @@ import { map } from './utils/zone';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(public service: AppService) { }
 
   readonly SERVER_NAME = SERVER_NAME;
+  readonly PULSE = PULSE_DAYS;
   readonly map = map;
-
-  ngOnInit(): void {
-    this.service.init();
-  }
 
 }
