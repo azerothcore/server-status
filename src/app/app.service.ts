@@ -16,13 +16,13 @@ export class AppService {
 
   get hordeCount()    { return this._hordeCount;    }
   get allianceCount() { return this._allianceCount; }
-  get players()       { return this._players;       }
-  get pulse()         { return this._pulse;         }
+  get players$()       { return this._players$;       }
+  get pulse$()         { return this._pulse$;         }
 
-  private _pulse: Observable<Pulse> = this.http.get<Pulse>(API_URL + '/auth/pulse/' + PULSE_DAYS);
+  private _pulse$: Observable<Pulse> = this.http.get<Pulse>(API_URL + '/auth/pulse/' + PULSE_DAYS);
   private _hordeCount = 0;
   private _allianceCount = 0;
-  private _players: Observable<PlayerType[]> = this.http.get<PlayerType[]>(API_URL + '/characters/online')
+  private _players$: Observable<PlayerType[]> = this.http.get<PlayerType[]>(API_URL + '/characters/online')
     .pipe(
       map((data) => {
         data.forEach((player, idx) => {

@@ -76,7 +76,7 @@ describe('AppService', () => {
 
     mockData[0].faction = 'alliance';
 
-    service.players.subscribe((data) => {
+    service.players$.subscribe((data) => {
       expect(data).toEqual(mockData);
     });
 
@@ -92,7 +92,7 @@ describe('AppService', () => {
       IPs: 1
     };
 
-    service.pulse.subscribe((data) => {
+    service.pulse$.subscribe((data) => {
       expect(data).toEqual(mockData);
     });
 
