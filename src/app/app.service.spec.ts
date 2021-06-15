@@ -1,4 +1,4 @@
-import { TestBed, async, getTestBed } from '@angular/core/testing';
+import { TestBed, getTestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { AppService } from './app.service';
@@ -10,7 +10,7 @@ describe('AppService', () => {
   let httpMock: HttpTestingController;
   let injector: TestBed;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
