@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { API_URL, PULSE_DAYS } from 'config';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { API_URL, PULSE_DAYS } from 'config';
 import { PlayerType } from './utils/player.type';
 import { Pulse } from './utils/pulse.type';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +22,12 @@ export class AppService {
   private _pulse$: Observable<Pulse> = this.http.get<Pulse>(API_URL + '/auth/pulse/' + PULSE_DAYS);
   private _hordeCount = 0;
   private _allianceCount = 0;
+
   private _players$: Observable<PlayerType[]> = this.http.get<PlayerType[]>(API_URL + '/characters/online')
     .pipe(
       map((data) => {
         data.forEach((player, idx) => {
-          data[idx].faction = this.getFaction(player.race);
+          data[idx]['faction'] = this.getFaction(player.race);
         });
         return data;
       })
