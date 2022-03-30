@@ -3,7 +3,7 @@
   <br>
 
   <div *ngIf="(service.players$ | async) as players; else loading">
-    <p class="h6 text-muted" *ngIf="(service.pulse$ | async) as pulse"><strong>{{ pulse[0].accounts }}</strong> active accounts from <strong>{{ pulse[0].IPs }}</strong> different IPs in last <strong>{{ PULSE }}</strong> days</p>
+    <p class="h6 text-success" *ngIf="(service.pulse$ | async) as pulse"><strong>{{ pulse[0].accounts }}</strong> active accounts from <strong>{{ pulse[0].IPs }}</strong> different IPs in last <strong>{{ PULSE }}</strong> days</p>
     <p class="lead h4">There are {{ players.length }} players online</p>
     <p class="h4">
       <img src="assets/alliance_medium.png">
