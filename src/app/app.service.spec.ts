@@ -1,9 +1,10 @@
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed, getTestBed, waitForAsync } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { API_URL, PULSE_DAYS } from 'config';
 import { AppService } from './app.service';
 import { PlayerType } from './utils/player.type';
-import { API_URL, PULSE_DAYS } from 'config';
 import { Pulse } from './utils/pulse.type';
 
 describe('AppService', () => {
@@ -12,14 +13,10 @@ describe('AppService', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-      ],
       declarations: [],
-      providers: [
-      ]
-    })
-    .compileComponents();
+      imports: [],
+      providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()],
+    }).compileComponents();
 
     injector = getTestBed();
 
@@ -60,19 +57,21 @@ describe('AppService', () => {
 
   it('players observable should work correctly', () => {
     const service: AppService = TestBed.get(AppService);
-    const mockData: PlayerType[] = [{
-      guid: 1,
-      name: 'Helias',
-      race: 7,
-      class: 8,
-      gender: 0,
-      level: 80,
-      map: 1,
-      instance_id: 0,
-      zone: 876,
-      guildId: 1,
-      guildName: 'AzerothCore'
-    }];
+    const mockData: PlayerType[] = [
+      {
+        guid: 1,
+        name: 'Helias',
+        race: 7,
+        class: 8,
+        gender: 0,
+        level: 80,
+        map: 1,
+        instance_id: 0,
+        zone: 876,
+        guildId: 1,
+        guildName: 'AzerothCore',
+      },
+    ];
 
     mockData[0].faction = 'alliance';
 
@@ -89,7 +88,7 @@ describe('AppService', () => {
     const service: AppService = TestBed.get(AppService);
     const mockData: Pulse = {
       accounts: 3,
-      IPs: 1
+      IPs: 1,
     };
 
     service.pulse$.subscribe((data) => {
@@ -99,7 +98,5 @@ describe('AppService', () => {
     const req = httpMock.expectOne(`${API_URL}/auth/pulse/${PULSE_DAYS}`);
     expect(req.request.method).toBe('GET');
     req.flush(mockData);
-
   });
-
 });

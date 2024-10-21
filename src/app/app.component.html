@@ -1,16 +1,23 @@
 <div class="container text-center">
   <p class="h2">{{ SERVER_NAME }} Server Status</p>
-  <br>
+  <br />
 
-  <div *ngIf="(service.players$ | async) as players; else loading">
-    <p class="h6 text-success" *ngIf="(service.pulse$ | async) as pulse"><strong>{{ pulse[0].accounts }}</strong> active accounts from <strong>{{ pulse[0].IPs }}</strong> different IPs in last <strong>{{ PULSE }}</strong> days</p>
+  @if (service.players$ | async; as players) {
+  <div>
+    @if (service.pulse$ | async; as pulse) {
+    <p class="h6 text-success">
+      <strong>{{ pulse[0].accounts }}</strong> active accounts from <strong>{{ pulse[0].IPs }}</strong> different IPs in last
+      <strong>{{ PULSE }}</strong> days
+    </p>
+    }
+
     <p class="lead h4">There are {{ players.length }} players online</p>
     <p class="h4">
-      <img src="assets/alliance_medium.png">
+      <img src="assets/alliance_medium.png" />
       {{ service.allianceCount }} - {{ service.hordeCount }}
-      <img src="assets/horde_medium.png">
+      <img src="assets/horde_medium.png" />
     </p>
-    <br>
+    <br />
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
         <thead>
@@ -23,27 +30,40 @@
           <th class="text-center">Map</th>
         </thead>
         <tbody>
-          <tr *ngFor="let player of players" [ngClass]="player.faction">
-            <td><strong>{{ player.name }}</strong></td>
-            <td><img [src]="'assets/class/' + player.class + '.gif'"></td>
-            <td><img [src]="'assets/race/' + player.race + '-' + player.gender + '.gif'"></td>
-            <td><img [src]="'assets/' + player.faction + '_min.png'"></td>
-            <td><strong>{{ player.level }}</strong></td>
-            <td><strong>{{ player.guildName }}</strong></td>
-            <td><strong>{{ map[player.zone] }}</strong></td>
+          @for(player of players; track $index) {
+          <tr [class]="player.faction">
+            <td>
+              <strong>{{ player.name }}</strong>
+            </td>
+            <td><img [src]="'assets/class/' + player.class + '.gif'" /></td>
+            <td><img [src]="'assets/race/' + player.race + '-' + player.gender + '.gif'" /></td>
+            <td><img [src]="'assets/' + player.faction + '_min.png'" /></td>
+            <td>
+              <strong>{{ player.level }}</strong>
+            </td>
+            <td>
+              <strong>{{ player.guildName }}</strong>
+            </td>
+            <td>
+              <strong>{{ map[player.zone] }}</strong>
+            </td>
           </tr>
+          }
         </tbody>
       </table>
     </div>
   </div>
+  } @else {
 
-  <ng-template #loading>
-    <br>
-    Loading data from API...
-    <br>
-  </ng-template>
+  <br />
+  Loading data from API...
+  <br />
+  }
 
-  <br>
+  <br />
   <!-- I worked for free to build this software, please do not remove the credit! -->
-  <p class="small">Designed by <a target="_blank" href="https://github.com/FrancescoBorzi/">ShinDarth</a> && <a target="_blank" href="https://github.com/Helias/">Helias</a></p>
+  <p class="small">
+    Designed by <a target="_blank" href="https://github.com/FrancescoBorzi/">ShinDarth</a> &&
+    <a target="_blank" href="https://github.com/Helias/">Helias</a>
+  </p>
 </div>

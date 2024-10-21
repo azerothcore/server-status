@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { PULSE_DAYS, SERVER_NAME } from 'config';
 import { AppService } from './app.service';
-import { SERVER_NAME, PULSE_DAYS } from 'config';
 import { map } from './utils/zone';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  constructor(public service: AppService) { }
+  protected readonly service: AppService = inject(AppService);
 
-  readonly SERVER_NAME = SERVER_NAME;
-  readonly PULSE = PULSE_DAYS;
-  readonly map = map;
-
+  protected readonly SERVER_NAME = SERVER_NAME;
+  protected readonly PULSE = PULSE_DAYS;
+  protected readonly map = map;
 }
