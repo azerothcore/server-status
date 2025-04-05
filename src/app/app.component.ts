@@ -7,6 +7,7 @@ import { map } from './utils/zone';
   selector: 'app-root',
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class AppComponent {
   protected readonly service: AppService = inject(AppService);

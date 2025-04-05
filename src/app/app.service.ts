@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { API_URL, PULSE_DAYS } from 'config';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { PlayerType } from './utils/player.type';
 import { Pulse } from './utils/pulse.type';
+import { Races } from './utils/races';
 
 @Injectable({
   providedIn: 'root',
@@ -18,41 +20,48 @@ export class AppService {
   get allianceCount(): number {
     return this._allianceCount;
   }
-  get players$(): Observable<PlayerType[]> {
-    return this._players$;
-  }
-  get pulse$(): Observable<Pulse> {
-    return this._pulse$;
-  }
 
-  private _pulse$: Observable<Pulse> = this.http.get<Pulse>(API_URL + '/auth/pulse/' + PULSE_DAYS);
+  private readonly _pulse$ = this.http.get<Pulse[]>(API_URL + '/auth/pulse/' + PULSE_DAYS).pipe(
+    catchError(() => {
+      console.error('Error loading pulse data from API');
+
+      return of(null);
+    }),
+  );
+  readonly pulse = toSignal(this._pulse$, { initialValue: [] });
+
   private _hordeCount = 0;
   private _allianceCount = 0;
 
-  private _players$: Observable<PlayerType[]> = this.http.get<PlayerType[]>(API_URL + '/characters/online').pipe(
-    map((data) => {
-      data.forEach((player, idx) => {
-        data[idx]['faction'] = this.getFaction(player.race);
-      });
-      return data;
+  private readonly _players$: Observable<PlayerType[]> = this.http.get<PlayerType[]>(API_URL + '/characters/online').pipe(
+    tap((data) => {
+      for (const playerType of data) {
+        playerType['faction'] = this.getFaction(playerType.race);
+      }
+    }),
+    catchError(() => {
+      console.log('Error loading players data');
+
+      return of(null);
     }),
   );
+  readonly players = toSignal(this._players$, { initialValue: [] });
 
   private getFaction(race: number): string {
     switch (race) {
-      case 2:
-      case 5:
-      case 6:
-      case 8:
-      case 9:
-      case 10:
+      case Races.ORC:
+      case Races.UNDEAD:
+      case Races.TAUREN:
+      case Races.TROLL:
+      case Races.GOBLIN:
+      case Races.BLOODELF:
         this._hordeCount++;
         return 'horde';
-      case 1:
-      case 3:
-      case 4:
-      case 7:
-      case 11:
+      case Races.HUMAN:
+      case Races.DWARF:
+      case Races.NIGHTELF:
+      case Races.GNOME:
+      case Races.DRAENEI:
         this._allianceCount++;
         return 'alliance';
       default:

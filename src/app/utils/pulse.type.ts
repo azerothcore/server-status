@@ -1,4 +1,4 @@
-export class Pulse {
+export interface Pulse {
   accounts: number;
   IPs: number;
 }

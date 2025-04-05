@@ -2,16 +2,16 @@
   <p class="h2">{{ SERVER_NAME }} Server Status</p>
   <br />
 
-  @if (service.players$ | async; as players) {
+  @if (service.players()?.length) {
   <div>
-    @if (service.pulse$ | async; as pulse) {
+    @if (service.pulse()?.length) {
     <p class="h6 text-success">
-      <strong>{{ pulse[0].accounts }}</strong> active accounts from <strong>{{ pulse[0].IPs }}</strong> different IPs in last
-      <strong>{{ PULSE }}</strong> days
+      <strong>{{ service.pulse()[0].accounts }}</strong> active accounts from <strong>{{ service.pulse()[0].IPs }}</strong> different IPs in
+      last <strong>{{ PULSE }}</strong> days
     </p>
     }
 
-    <p class="lead h4">There are {{ players.length }} players online</p>
+    <p class="lead h4">There are {{ service.players().length }} players online</p>
     <p class="h4">
       <img src="assets/alliance_medium.png" />
       {{ service.allianceCount }} - {{ service.hordeCount }}
@@ -30,7 +30,7 @@
           <th class="text-center">Map</th>
         </thead>
         <tbody>
-          @for(player of players; track $index) {
+          @for(player of service.players(); track $index) {
           <tr [class]="player.faction">
             <td>
               <strong>{{ player.name }}</strong>
@@ -53,12 +53,11 @@
       </table>
     </div>
   </div>
+  } @else { @if(service.players() === null) {
+  <p>⚠️ Error loading data from API ⚠️</p>
   } @else {
-
-  <br />
-  Loading data from API...
-  <br />
-  }
+  <p>Loading data from API...</p>
+  } }
 
   <br />
   <!-- I worked for free to build this software, please do not remove the credit! -->
