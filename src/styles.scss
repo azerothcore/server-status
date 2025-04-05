@@ -1,17 +1,15 @@
-@import "../node_modules/bootswatch/dist/cyborg/variables";
-@import "../node_modules/bootstrap/scss/bootstrap";
-@import "../node_modules/bootswatch/dist/cyborg/bootswatch";
-@import "../node_modules/bootswatch/dist/cyborg/bootstrap.min.css";
-
-
-.alliance td { color: #1A67F4; }
-.horde td { color: #CD0A0E; }
+.alliance td {
+  color: #1a67f4;
+}
+.horde td {
+  color: #cd0a0e;
+}
 
 th {
   color: #fff;
-  background-color: rgba(255, 255, 255, .1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 table tr:nth-child(2n) {
-  background-color: rgba(255, 255, 255, .1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
