@@ -20,20 +20,19 @@ describe('AppService', () => {
 
     injector = getTestBed();
 
-    httpMock = injector.get(HttpTestingController);
+    httpMock = injector.inject(HttpTestingController);
   }));
 
   afterEach(() => {
+    const requests = httpMock.match(() => true);
+    for (const req of requests) {
+      req.flush({});
+    }
     httpMock.verify();
   });
 
-  it('should be created', () => {
-    const service: AppService = TestBed.get(AppService);
-    expect(service).toBeTruthy();
-  });
-
   it('getFaction() should work correctly', () => {
-    const service: AppService = TestBed.get(AppService);
+    const service: AppService = TestBed.inject(AppService);
 
     const horde = [2, 5, 6, 8, 9, 10];
     const alliance = [1, 3, 4, 7, 11];
@@ -56,7 +55,7 @@ describe('AppService', () => {
   });
 
   it('players observable should work correctly', () => {
-    const service: AppService = TestBed.get(AppService);
+    const service: AppService = TestBed.inject(AppService);
     const mockData: PlayerType[] = [
       {
         guid: 1,
@@ -75,28 +74,28 @@ describe('AppService', () => {
 
     mockData[0].faction = 'alliance';
 
-    service.players$.subscribe((data) => {
-      expect(data).toEqual(mockData);
-    });
+    expect(service.players()).toEqual([]);
 
     const req = httpMock.expectOne(`${API_URL}/characters/online`);
     expect(req.request.method).toBe('GET');
     req.flush(mockData);
+
+    expect(service.players()).toEqual(mockData);
   });
 
   it('pulse observable should work correctly', () => {
-    const service: AppService = TestBed.get(AppService);
+    const service: AppService = TestBed.inject(AppService);
     const mockData: Pulse = {
       accounts: 3,
       IPs: 1,
     };
 
-    service.pulse$.subscribe((data) => {
-      expect(data).toEqual(mockData);
-    });
+    expect(service.pulse()).toEqual([]);
 
     const req = httpMock.expectOne(`${API_URL}/auth/pulse/${PULSE_DAYS}`);
     expect(req.request.method).toBe('GET');
     req.flush(mockData);
+
+    expect(service.pulse()).toEqual(mockData);
   });
 });
