@@ -19,6 +19,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Add conf
+        run: cp config.ts.dist config.ts
+
       - name: Install dependencies
         run: npm ci
 
