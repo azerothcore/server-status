@@ -1,6 +1,14 @@
 <div class="container text-center">
-  <p class="h2">{{ SERVER_NAME }} Server Status</p>
+  <div class="server-header">
+    <div class="server-header-inner">
+      <div class="server-title">{{ SERVER_NAME }}</div>
+      <div class="server-subtitle">Server Status</div>
+    </div>
+  </div>
+
+<!--  <p class="h2">{{ SERVER_NAME }} Server Status</p> 
   <br />
+-->
 
   @if (service.players()?.length) {
   <div>
@@ -18,19 +26,34 @@
       <img src="assets/horde_medium.png" />
     </p>
     <br />
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search character or guild..." class="form-control mb-3" />
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
         <thead>
-          <th class="text-center">Character</th>
-          <th class="text-center">Class</th>
-          <th class="text-center">Race</th>
-          <th class="text-center">Faction</th>
-          <th class="text-center">Level</th>
-          <th class="text-center">Guild</th>
-          <th class="text-center">Map</th>
-        </thead>
+	  <th class="text-center" (click)="sortBy('name')">
+            Character {{ getSortIcon('name') }}
+          </th>
+          <th class="text-center" (click)="sortBy('class')">
+            Class {{ getSortIcon('class') }}
+          </th>
+          <th class="text-center" (click)="sortBy('race')">
+            Race {{ getSortIcon('race') }}
+          </th>
+          <th class="text-center" (click)="sortBy('faction')">
+            Faction {{ getSortIcon('faction') }}
+          </th>
+          <th class="text-center" (click)="sortBy('level')">
+            Level {{ getSortIcon('level') }}
+          </th>
+          <th class="text-center" (click)="sortBy('guildName')">
+            Guild {{ getSortIcon('guildName') }}
+          </th>
+          <th class="text-center" (click)="sortBy('zone')">
+            Map {{ getSortIcon('zone') }}
+          </th>        </thead>
         <tbody>
-          @for(player of service.players(); track $index) {
+          <!-- @for(player of service.players(); track $index) { -->
+	  @for(player of filteredPlayers(); track $index) {
           <tr [class]="player.faction">
             <td>
               <strong>{{ player.name }}</strong>
