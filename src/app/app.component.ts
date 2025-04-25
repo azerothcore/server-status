@@ -4,6 +4,30 @@ import { PULSE_DAYS, SERVER_NAME } from 'config';
 import { AppService } from './app.service';
 import { map } from './utils/zone';
 
+// === Enum for Sorting Direction ===
+enum SortDirection {
+  ASC = 'asc',
+  DESC = 'desc',
+  CUSTOM = 'custom',
+  NONE = 'none'
+}
+
+// === Interface for Player Data ===
+interface Player {
+  guid: number;
+  name: string;
+  race: number;
+  class: number;
+  gender: number;
+  level: number;
+  map: number;
+  instance_id: number;
+  zone: number;
+  guildId: number;
+  guildName: string;
+  faction?: string;   // Optional because it's computed later
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -25,14 +49,14 @@ export class AppComponent {
 
   // === Sorting State ===
   protected sortColumn: string = '';
-  protected sortDirection: 'asc' | 'desc' = 'asc';
+  protected sortDirection: SortDirection = SortDirection.ASC;
 
   /**
    * Filter and Sort players list dynamically based on searchTerm and selected column.
    * This method is called directly from the template to update the displayed list.
    */
-protected filteredPlayers() {
-    let players = this.service.players() || [];
+  protected filteredPlayers(): Player[] {
+    let players: Player[] = this.service.players() || [];
 
     // === Filter players by search term (only on name and guild) ===
     if (this.searchTerm) {
@@ -46,8 +70,8 @@ protected filteredPlayers() {
     // === Sort players if a column is selected ===
     if (this.sortColumn) {
       players = players.sort((a, b) => {
-        let valueA = a[this.sortColumn];
-        let valueB = b[this.sortColumn];
+        let valueA: any = a[this.sortColumn];
+        let valueB: any = b[this.sortColumn];
 
         // Handle 'zone' with zone names instead of IDs
         if (this.sortColumn === 'zone') {
@@ -55,23 +79,23 @@ protected filteredPlayers() {
           valueB = this.map[b.zone] || '';
         }
 
-        // Numeric comparison if both values are numbers
+        // Numeric comparison
         if (typeof valueA === 'number' && typeof valueB === 'number') {
-          return this.sortDirection === 'asc' ? valueA - valueB : valueB - valueA;
+          return this.sortDirection === SortDirection.ASC ? valueA - valueB : valueB - valueA;
         }
 
         // String comparison (case insensitive)
         if (typeof valueA === 'string') valueA = valueA.toLowerCase();
         if (typeof valueB === 'string') valueB = valueB.toLowerCase();
 
-        if (valueA < valueB) return this.sortDirection === 'asc' ? -1 : 1;
-        if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
+        if (valueA < valueB) return this.sortDirection === SortDirection.ASC ? -1 : 1;
+        if (valueA > valueB) return this.sortDirection === SortDirection.ASC ? 1 : -1;
         return 0;
       });
     }
 
     return players;
-}
+  }
 
   /**
    * Handle column click for sorting.
@@ -80,10 +104,10 @@ protected filteredPlayers() {
    */
   protected sortBy(column: string) {
     if (this.sortColumn === column) {
-      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+      this.sortDirection = this.sortDirection === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC;
     } else {
       this.sortColumn = column;
-      this.sortDirection = 'asc';
+      this.sortDirection = SortDirection.ASC;
     }
   }
 
@@ -93,6 +117,6 @@ protected filteredPlayers() {
    */
   protected getSortIcon(column: string): string {
     if (this.sortColumn !== column) return '';
-    return this.sortDirection === 'asc' ? '▴' : '▾';
+    return this.sortDirection === SortDirection.ASC ? '▴' : '▾';
   }
 }
