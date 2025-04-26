@@ -42,5 +42,5 @@ You can help us [opening a new issue](https://github.com/azerothcore/server-stat
 
 ---
 ### Contributors
-Original project by [ShinDarth](https://github.com/FrancescoBorzi) & [Helias](https://github.com/Helias)
+Original project by [ShinDarth](https://github.com/FrancescoBorzi) & [Helias](https://github.com/Helias). 
 Theme system, design refactor and enhancements by [Ben](https://github.com/benoitheylens)
