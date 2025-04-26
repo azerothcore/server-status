@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { map } from './utils/zone';
 
 // === Enum for Sorting Direction ===
-enum SortDirection {
+const enum SortDirection {
     ASC = 'asc',
     DESC = 'desc',
     CUSTOM = 'custom',

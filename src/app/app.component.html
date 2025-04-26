@@ -9,8 +9,7 @@
 
     <!-- original code:
       <p class="h2">{{ SERVER_NAME }} Server Status</p>
-    <br />
-  -->
+    <br /> -->
 
     @if (service.players()?.length) {
     <section class="server-info">
@@ -22,7 +21,8 @@
       </p>
       }
 
-      <p class="players-count">There are <span class="gold-bold">{{ service.players().length }}</span> players online</p>
+      <p class="players-count">There are <span class="gold-bold">{{ service.players().length }}</span> players online
+      </p>
 
       <div class="faction-balance">
         <p class="faction-score">
@@ -30,11 +30,11 @@
           {{ service.allianceCount }} - {{ service.hordeCount }}
           <img src="assets/horde_medium.png" />
         </p>
-<div class="population-bar">
-  <div class="population-faction-alliance alliance" [style.flex]="service.allianceCount"></div>
-  <div class="separator"></div>
-  <div class="population-faction-horde horde" [style.flex]="service.hordeCount"></div>
-</div>
+        <div class="population-bar">
+          <div class="population-faction-alliance alliance" [style.flex]="service.allianceCount"></div>
+          <div class="separator"></div>
+          <div class="population-faction-horde horde" [style.flex]="service.hordeCount"></div>
+        </div>
       </div>
     </section>
 
@@ -57,14 +57,12 @@
           <th class="text-center" (click)="sortBy('zone')">Map {{ getSortIcon('zone') }}</th>
         </thead>
         <tbody>
-          <!-- @for(player of service.players(); track $index) { -->
           @for(player of filteredPlayers(); track $index) {
           <tr [class]="player.faction">
             <td><strong>{{ player.name }}</strong></td>
             <!-- github/benoitheylens: I did force image sizes through CSS for the table -->
             <td><img [src]="'assets/class/' + player.class + '.png'" width="32" height="32" /></td>
-            <td><img [src]="'assets/race/' + player.race + '-' + player.gender + '.png'" width="32" height="32" />
-            </td>
+            <td><img [src]="'assets/race/' + player.race + '-' + player.gender + '.png'" width="32" height="32" /></td>
             <td><img [src]="'assets/' + player.faction + '.png'" width="32" height="32" /></td>
             <td><strong>{{ player.level }}</strong></td>
             <td><strong>{{ player.guildName }}</strong></td>
@@ -82,9 +80,10 @@
     }
     }
     <footer class="credits">
-      <p>
-        Designed by <a href="https://github.com/FrancescoBorzi/" target="_blank">ShinDarth</a> &
-        <a href="https://github.com/Helias/" target="_blank">Helias</a> - Azeroth Theme by
+      <!-- I worked for free to build this software, please do not remove the credit! -->
+      <p class="small">
+        Designed by <a href="https://github.com/FrancescoBorzi/" target="_blank">ShinDarth</a> & 
+        <a href="https://github.com/Helias/" target="_blank">Helias</a> - Azeroth Theme by 
         <a href="https://github.com/benoitheylens" target="_blank">Ben</a>
       </p>
     </footer>
