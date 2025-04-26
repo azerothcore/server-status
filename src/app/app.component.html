@@ -1,81 +1,92 @@
-<div class="container text-center">
-  <div class="server-header">
-    <div class="server-header-inner">
-      <div class="server-title">{{ SERVER_NAME }}</div>
-      <div class="server-subtitle">Server Status</div>
-    </div>
-  </div>
+<main>
+  <div class="container text-center">
+    <header class="server-header">
+      <div class="server-header-inner">
+        <h1 class="server-title">{{ SERVER_NAME }}</h1>
+        <h2 class="server-subtitle">Server Status</h2>
+      </div>
+    </header>
 
-  <!-- original code: 
-    <p class="h2">{{ SERVER_NAME }} Server Status</p>
-  <br />
--->
-
-  @if (service.players()?.length) {
-  <div>
-    @if (service.pulse()?.length) {
-    <p class="h6 text-success">
-      <strong>{{ service.pulse()[0].accounts }}</strong> active accounts from <strong>{{ service.pulse()[0].IPs
-        }}</strong> different IPs in
-      last <strong>{{ PULSE }}</strong> days
-    </p>
-    }
-
-    <p class="lead h4">There are {{ service.players().length }} players online</p>
-    <p class="h4">
-      <img src="assets/alliance_medium.png" />
-      {{ service.allianceCount }} - {{ service.hordeCount }}
-      <img src="assets/horde_medium.png" />
-    </p>
+    <!-- original code:
+      <p class="h2">{{ SERVER_NAME }} Server Status</p>
     <br />
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Search character or guild..." class="form-control mb-3" />
+  -->
+
+    @if (service.players()?.length) {
+    <section class="server-info">
+      @if (service.pulse()?.length) {
+      <p class="h6 text-success">
+        <strong>{{ service.pulse()[0].accounts }}</strong> active accounts from <strong>{{ service.pulse()[0].IPs
+          }}</strong> different IPs in
+        last <strong>{{ PULSE }}</strong> days
+      </p>
+      }
+
+      <p class="players-count">There are <span class="gold-bold">{{ service.players().length }}</span> players online</p>
+
+      <div class="faction-balance">
+        <p class="faction-score">
+          <img src="assets/alliance_medium.png" />
+          {{ service.allianceCount }} - {{ service.hordeCount }}
+          <img src="assets/horde_medium.png" />
+        </p>
+<div class="population-bar">
+  <div class="population-faction-alliance alliance" [style.flex]="service.allianceCount"></div>
+  <div class="separator"></div>
+  <div class="population-faction-horde horde" [style.flex]="service.hordeCount"></div>
+</div>
+      </div>
+    </section>
+
+    <!--  <p class="h4">
+        <img src="assets/alliance_medium.png" />
+        {{ service.allianceCount }} - {{ service.hordeCount }}
+        <img src="assets/horde_medium.png" />
+      </p> -->
+
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search character or guild..." class="search-bar" />
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
         <thead>
-          <th class="text-center" (click)="sortBy('name')"> Character {{ getSortIcon('name') }} </th>
-          <th class="text-center" (click)="sortBy('class')"> Class {{ getSortIcon('class') }} </th>
-          <th class="text-center" (click)="sortBy('race')"> Race {{ getSortIcon('race') }} </th>
-          <th class="text-center" (click)="sortBy('faction')"> Faction {{ getSortIcon('faction') }} </th>
-          <th class="text-center" (click)="sortBy('level')"> Level {{ getSortIcon('level') }} </th>
-          <th class="text-center" (click)="sortBy('guildName')"> Guild {{ getSortIcon('guildName') }} </th>
-          <th class="text-center" (click)="sortBy('zone')"> Map {{ getSortIcon('zone') }} </th>
+          <th class="text-center" (click)="sortBy('name')">Character {{ getSortIcon('name') }}</th>
+          <th class="text-center" (click)="sortBy('class')">Class {{ getSortIcon('class') }}</th>
+          <th class="text-center" (click)="sortBy('race')">Race {{ getSortIcon('race') }}</th>
+          <th class="text-center" (click)="sortBy('faction')">Faction {{ getSortIcon('faction') }}</th>
+          <th class="text-center" (click)="sortBy('level')">Level {{ getSortIcon('level') }}</th>
+          <th class="text-center" (click)="sortBy('guildName')">Guild {{ getSortIcon('guildName') }}</th>
+          <th class="text-center" (click)="sortBy('zone')">Map {{ getSortIcon('zone') }}</th>
         </thead>
         <tbody>
           <!-- @for(player of service.players(); track $index) { -->
           @for(player of filteredPlayers(); track $index) {
           <tr [class]="player.faction">
-            <td>
-              <strong>{{ player.name }}</strong>
-            </td>
+            <td><strong>{{ player.name }}</strong></td>
             <!-- github/benoitheylens: I did force image sizes through CSS for the table -->
             <td><img [src]="'assets/class/' + player.class + '.png'" width="32" height="32" /></td>
-            <td><img [src]="'assets/race/' + player.race + '-' + player.gender + '.png'" width="32" height="32" /></td>
+            <td><img [src]="'assets/race/' + player.race + '-' + player.gender + '.png'" width="32" height="32" />
+            </td>
             <td><img [src]="'assets/' + player.faction + '.png'" width="32" height="32" /></td>
-            <td>
-              <strong>{{ player.level }}</strong>
-            </td>
-            <td>
-              <strong>{{ player.guildName }}</strong>
-            </td>
-            <td>
-              <strong>{{ map[player.zone] }}</strong>
-            </td>
+            <td><strong>{{ player.level }}</strong></td>
+            <td><strong>{{ player.guildName }}</strong></td>
+            <td><strong>{{ map[player.zone] }}</strong></td>
           </tr>
           }
         </tbody>
       </table>
     </div>
+
+    } @else { @if(service.players() === null) {
+    <p>⚠️ Error loading data from API ⚠️</p>
+    } @else {
+    <p>Loading data from API...</p>
+    }
+    }
+    <footer class="credits">
+      <p>
+        Designed by <a href="https://github.com/FrancescoBorzi/" target="_blank">ShinDarth</a> &
+        <a href="https://github.com/Helias/" target="_blank">Helias</a> - Azeroth Theme by
+        <a href="https://github.com/benoitheylens" target="_blank">Ben</a>
+      </p>
+    </footer>
   </div>
-  } @else { @if(service.players() === null) {
-  <p>⚠️ Error loading data from API ⚠️</p>
-  } @else {
-  <p>Loading data from API...</p>
-  } }
-  <br />
-  <!-- I worked for free to build this software, please do not remove the credit! -->
-  <p class="small">
-    Designed by <a target="_blank" href="https://github.com/FrancescoBorzi/">ShinDarth</a> &&
-    <a target="_blank" href="https://github.com/Helias/">Helias</a> - Azeroth Theme by <a target="_blank"
-      href="https://github.com/benoitheylens">Ben</a>
-  </p>
-</div>
+</main>

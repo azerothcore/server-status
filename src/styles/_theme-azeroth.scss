@@ -1,0 +1,236 @@
+// ======== AZEROTH THEME ========
+
+@use 'variables' as *;
+@import url('https://fonts.googleapis.com/css2?family=Asul&family=Bellefair&display=swap');
+
+body {
+background: $azeroth-background;
+color: $azeroth-text-color;
+font-family: $font-main;
+}
+
+/* .container {
+  margin: 0 auto;
+  max-width: 100%;
+} */
+
+.players-count {
+  font-size: 1.3rem;
+  margin: 15px 0;
+}
+
+.gold-bold {
+  font-weight: bold;
+  color: $azeroth-color-gold;
+}
+
+// === POPULATION BAR CUSTOM ===
+.population-bar {
+  border: 2px solid $azeroth-color-gold;
+}
+
+.faction-score {
+  color: #dbd3bb;
+}
+
+// === SEARCH BAR STYLE ===
+.search-bar {
+  background: $lighter-background;
+  border: 2px solid $azeroth-color-gold;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 8px;
+  width: 28%;
+  min-width: 265px;
+  font-family: $font-elegant;
+  font-size: 1.6em;
+  font-weight: 500;
+}
+
+// === TITLES STYLE ===
+.h4 {
+  font-family: $font-elegant;
+  font-weight: 500;
+}
+
+// === SERVER NAME HEADER ===
+.server-header {
+  position: relative;
+  margin: 28px auto;
+  padding: 5px;
+  max-width: 500px;
+  border: 2px solid $azeroth-color-gold;
+  background-color: $lighter-background; //
+  text-align: center;
+  font-family: $font-elegant;
+  font-weight: 500;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.6);
+
+  &:before,
+  &:after {
+    content: "•";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+    color: $azeroth-color-gold;
+    border: 2px solid $azeroth-color-gold;
+    line-height: 12px;
+    top: 5px;
+    text-align: center;
+  }
+
+  &:before {
+    left: 5px;
+  }
+
+  &:after {
+    right: 5px;
+  }
+
+  .server-header-inner {
+    position: relative;
+    border: 2px solid $azeroth-color-gold;
+    padding: 14px;
+
+    &:before,
+    &:after {
+      content: "•";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      font-size: 14px;
+      color: $azeroth-color-gold;
+      border: 2px solid $azeroth-color-gold;
+      line-height: 12px;
+      bottom: -2px;
+      text-align: center;
+    }
+
+    &:before {
+      left: -2px;
+    }
+
+    &:after {
+      right: -2px;
+    }
+  }
+}
+
+// === SERVER TITLE & SUBTITLE ===
+.server-title {
+  font-size: 4rem;
+  font-weight: 500;
+  color: lighten($azeroth-color-gold, 20%);
+  text-shadow: // Outline
+    -2px -2px 0 #000,
+    /* Haut-Gauche */
+    0px -2px 0 #000,
+    /* Haut */
+    2px -2px 0 #000,
+    /* Haut-Droit */
+    -2px 0px 0 #000,
+    /* Gauche */
+    2px 0px 0 #000,
+    /* Droit */
+    -2px 2px 0 #000,
+    /* Bas-Gauche */
+    0px 2px 0 #000,
+    /* Bas */
+    2px 2px 0 #000;
+  /* Bas-Droit */
+}
+
+.server-subtitle {
+  font-size: 1.3rem;
+  color: lighten($azeroth-color-gold, 40%);
+  /* margin-top: 10px; */
+  font-family: $font-main;
+  display: none; // Change this to show "Serveur Status" below your Server Name
+}
+
+// === TABLE STYLE ===
+.table {
+  border: 2px solid $azeroth-color-gold;
+  border-collapse: separate; //Firefox Fix
+  border-spacing: 0; // No space between cells - Firefox fix
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: $font-main;
+  font-size: 1em;
+  font-weight: 400;
+  // box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.6);
+}
+
+.table th,
+.table td {
+  //another Firefox fix
+  border: none !important;
+  background-clip: padding-box;
+}
+
+.table img {
+  width: 24px;
+  height: 24px;
+}
+
+th {
+  background: linear-gradient(#3a3a3a, #2a2a2a);
+  color: #f0e6d2;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid $azeroth-color-gold;
+
+  &:hover {
+    color: lighten($azeroth-color-gold, 15%);
+    text-shadow: 0 0 5px rgba(191, 162, 86, 0.4);
+    cursor: pointer;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+}
+
+tr,
+td {
+  border: none !important;
+}
+
+tr:hover {
+  background-color: rgba(161, 161, 161, 0.1);
+  box-shadow: 0 0 10px rgba(191, 162, 86, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/*  tbody tr {
+    background-color: $base-row !important;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: $even-row !important;
+  } */
+
+// === Override from Bootstrap ===
+.table-striped>tbody>tr>td {
+  box-shadow: none !important; // Neutralise l'effet Bootstrap
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>td {
+  background-color: $base-row !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(even)>td {
+  background-color: $even-row !important;
+}
+
+// === FACTION COLORS ===
+.alliance td {
+  color: #2c8bff;
+}
+
+.horde td {
+  color: #df2c2c;
+}
