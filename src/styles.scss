@@ -1,15 +1,36 @@
-.alliance td {
-  color: #1a67f4;
-}
-.horde td {
-  color: #cd0a0e;
-}
+/*
+==========================================
+        🎨 THEME MANAGEMENT (SCSS)
+==========================================
 
-th {
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.1);
-}
+To switch themes:
+1️⃣ Open this file: **styles.scss**
+2️⃣ Uncomment the `@use` line for the theme you want.
+3️⃣ Comment out the other themes.
 
-table tr:nth-child(2n) {
-  background-color: rgba(255, 255, 255, 0.1);
-}
+Example:
+// @use 'theme-legacy';
+@use 'theme-azeroth';
+
+Only ONE theme should be active at a time.
+
+Note:
+This manual process is intentional for simplicity.
+No script automation provided — it's straightforward enough 
+for anyone maintaining this project.
+
+==========================================
+*/
+
+// ================================ //
+//  SCSS MASTER FILE                //
+//  Import core + select your theme //
+// ================================ //
+
+@use 'styles/variables';
+@use 'styles/core';
+
+// === ACTIVE THEME ===
+
+@use 'styles/theme-azeroth';
+@use 'styles/theme-legacy';

@@ -1,0 +1,89 @@
+@use 'variables' as *;
+
+// === Reset ===
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+// === Population Bar Base ===
+.population-bar {
+  display: flex;
+  width: 100%;
+  height: $bar-height;
+  border-radius: $border-radius;
+  margin: 10px 0;
+  overflow: visible;
+  margin: 10px 0;
+}
+
+.population-faction-horde {
+  height: 100%;
+  flex-shrink: 0;
+  background-color: $color-horde;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: linear-gradient(to bottom, $color-horde, darken($color-horde, 20%));
+}
+
+.population-faction-alliance {
+  height: 100%;
+  flex-shrink: 0;
+  background-color: $color-alliance;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: linear-gradient(to bottom, $color-alliance, darken($color-alliance, 20%));
+}
+
+// === Separator Sword ===
+.separator {
+  position: relative;
+  width: 4px;
+  flex-shrink: 0;
+  background: transparent;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    width: 4px;
+    height: 5px;
+    background: #DDD; // Start of the blade (top)
+
+    box-shadow:
+      0 4px #DDD,
+      0 8px #DDD,
+      0 12px #DDD,
+      -4px 16px #777, // Left
+      4px 16px #777, // Right
+      0 16px #777, // Middle
+      0 20px #624a2e, // leather guard
+      0 24px #624a2e; // leather guard
+
+    //    filter: drop-shadow(0 0 1px #ffd700);  // Glow
+    filter: drop-shadow(1px 1px 1px 1px #333); // Outline
+  }
+}
+
+// === Generic Search Bar ===
+.search-bar {
+  display: block;
+  margin: 20px auto 8px 0;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+// === Faction Balance ===
+.faction-balance {
+  width: 25%;
+  min-width: 400px;
+  font-size: 3em;
+  text-align: center;
+  margin-inline: auto;
+  color: #ffffff;
+}

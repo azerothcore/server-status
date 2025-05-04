@@ -62,6 +62,7 @@ export class AppService {
       case Races.NIGHTELF:
       case Races.GNOME:
       case Races.DRAENEI:
+      case Races.WORGEN:
         this._allianceCount++;
         return 'alliance';
       default:
