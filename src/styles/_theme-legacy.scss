@@ -2,61 +2,62 @@
 
 @use 'variables' as *;
 
-// === General Styles ===
-    th {
-        color: #fff;
-        background-color: #ffffff22;
-    }
+.legacy-theme {
+  // === General Styles ===
+  th {
+    color: #fff;
+    background-color: #ffffff22;
+  }
 
-    table tr:nth-child(2n) {
-        background-color: #ffffff22;
-    }
+  table tr:nth-child(2n) {
+    background-color: #ffffff22;
+  }
 
-    .server-title {
-        font-size: 3rem;
-        font-weight: 500;
-    }
+  .server-title {
+    font-size: 3rem;
+    font-weight: 500;
+  }
 
-    .server-subtitle {
-        font-size: 1.1rem;
-    }
+  .server-subtitle {
+    font-size: 1.1rem;
+  }
 
-    .alliance {
-        color: #1a67f4;
-    }
+  .alliance {
+    color: #1a67f4;
+  }
 
-    .horde {
-        color: #cd0a0e;
-    }
+  .horde {
+    color: #cd0a0e;
+  }
 
-.gold-bold {
-  color: #bfa256; 
-  font-weight: bold;
+  .gold-bold {
+    color: #bfa256;
+    font-weight: bold;
+  }
+
+  // === Population Bar ===
+  .population-bar {
+    // display: none !important; // you can remove the bar if you don't like it.
+    border: 3px solid #333;
+  }
+
+  // === Search Bar ===
+  .search-bar {
+    width: 25%;
+    min-width: 220px;
+    border: 2px solid #333;
+    color: #555; // Black on white on focus
+    background-color: #222;
+    font-size: 1em;
+    font-weight: 700;
+
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+
+    &:focus {
+      background-color: #fff;
+      color: #111;
+      outline: none; // Fix for Firefox
+      border: 2px solid #999;
+    }
+  }
 }
-
-    // === Population Bar ===
-    .population-bar {
-        // display: none !important; // you can remove the bar if you don't like it.
-        border: 3px solid #333;
-    }
-
-    // === Search Bar ===
-    .search-bar {
-        width: 25%;
-        min-width: 220px;
-        border: 2px solid #333;
-        color: #555; // Black on white on focus
-        background-color: #222;
-        font-size: 1em;
-        font-weight: 700;
-
-        transition: background-color 0.3s, color 0.3s, border 0.3s;
-
-        &:focus {
-            background-color: #fff;
-            color: #111;
-            outline: none; // Fix for Firefox
-            border: 2px solid #999;
-        }
-    }
-

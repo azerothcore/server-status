@@ -1,9 +1,11 @@
-<main>
-  <div class="container text-center">
+<main [class]="ENABLE_AZEROTH_THEME ? 'azeroth-theme' : 'legacy-theme'">
+  <div class="container text-center" [class.pt-3]="ENABLE_AZEROTH_THEME">
     <header class="server-header">
       <div class="server-header-inner">
         <h1 class="server-title">{{ SERVER_NAME }}</h1>
+        @if (!!ENABLE_AZEROTH_THEME) {
         <h2 class="server-subtitle">Server Status</h2>
+        }
       </div>
     </header>
 
@@ -15,13 +17,13 @@
     <section class="server-info">
       @if (service.pulse()?.length) {
       <p class="h6 text-success">
-        <strong>{{ service.pulse()[0].accounts }}</strong> active accounts from <strong>{{ service.pulse()[0].IPs
-          }}</strong> different IPs in
-        last <strong>{{ PULSE }}</strong> days
+        <strong>{{ service.pulse()[0].accounts }}</strong> active accounts from <strong>{{ service.pulse()[0].IPs }}</strong> different IPs
+        in last <strong>{{ PULSE }}</strong> days
       </p>
       }
 
-      <p class="players-count">There are <span class="gold-bold">{{ service.players().length }}</span> players online
+      <p class="players-count">
+        There are <span class="gold-bold">{{ service.players().length }}</span> players online
       </p>
 
       <div class="faction-balance">
@@ -59,14 +61,22 @@
         <tbody>
           @for(player of filteredPlayers(); track $index) {
           <tr [class]="player.faction">
-            <td><strong>{{ player.name }}</strong></td>
+            <td>
+              <strong>{{ player.name }}</strong>
+            </td>
             <!-- github/benoitheylens: I did force image sizes through CSS for the table -->
             <td><img [src]="'assets/class/' + player.class + '.png'" width="32" height="32" /></td>
             <td><img [src]="'assets/race/' + player.race + '-' + player.gender + '.png'" width="32" height="32" /></td>
             <td><img [src]="'assets/' + player.faction + '.png'" width="32" height="32" /></td>
-            <td><strong>{{ player.level }}</strong></td>
-            <td><strong>{{ player.guildName }}</strong></td>
-            <td><strong>{{ map[player.zone] }}</strong></td>
+            <td>
+              <strong>{{ player.level }}</strong>
+            </td>
+            <td>
+              <strong>{{ player.guildName }}</strong>
+            </td>
+            <td>
+              <strong>{{ map[player.zone] }}</strong>
+            </td>
           </tr>
           }
         </tbody>
@@ -77,13 +87,12 @@
     <p>⚠️ Error loading data from API ⚠️</p>
     } @else {
     <p>Loading data from API...</p>
-    }
-    }
+    } }
     <footer class="credits">
       <!-- I worked for free to build this software, please do not remove the credit! -->
       <p class="small">
-        Designed by <a href="https://github.com/FrancescoBorzi/" target="_blank">ShinDarth</a> & 
-        <a href="https://github.com/Helias/" target="_blank">Helias</a> - Azeroth Theme by 
+        Designed by <a href="https://github.com/FrancescoBorzi/" target="_blank">ShinDarth</a> &
+        <a href="https://github.com/Helias/" target="_blank">Helias</a> - Azeroth Theme by
         <a href="https://github.com/benoitheylens" target="_blank">Ben</a>
       </p>
     </footer>
