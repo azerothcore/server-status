@@ -10,4 +10,5 @@ export const enum Races {
   GOBLIN = 9,
   BLOODELF = 10,
   DRAENEI = 11,
+  WORGEN = 12,
 }
