@@ -1,4 +1,4 @@
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, provideZoneChangeDetection } from '@angular/core';
 
 import { provideHttpClient } from '@angular/common/http';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -9,4 +9,4 @@ if (environment.production) {
   enableProdMode();
 }
 
-bootstrapApplication(AppComponent, { providers: [provideHttpClient()] }).catch((err) => console.error(err));
+bootstrapApplication(AppComponent, { providers: [provideZoneChangeDetection(),provideHttpClient()] }).catch((err) => console.error(err));
