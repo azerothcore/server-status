@@ -1,7 +1,7 @@
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed, getTestBed, waitForAsync } from '@angular/core/testing';
 
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { API_URL, PULSE_DAYS } from 'config';
 import { AppService } from './app.service';
 import { PlayerType } from './utils/player.type';
@@ -15,7 +15,7 @@ describe('AppService', () => {
     TestBed.configureTestingModule({
       declarations: [],
       imports: [],
-      providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()],
+      providers: [provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()],
     }).compileComponents();
 
     injector = getTestBed();
