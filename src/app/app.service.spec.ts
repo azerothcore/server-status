@@ -1,5 +1,5 @@
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { TestBed, getTestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed, getTestBed } from '@angular/core/testing';
 
 import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { API_URL, PULSE_DAYS } from 'config';
@@ -11,8 +11,8 @@ describe('AppService', () => {
   let httpMock: HttpTestingController;
   let injector: TestBed;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [],
       imports: [],
       providers: [provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()],
@@ -21,7 +21,7 @@ describe('AppService', () => {
     injector = getTestBed();
 
     httpMock = injector.inject(HttpTestingController);
-  }));
+  });
 
   afterEach(() => {
     const requests = httpMock.match(() => true);
