@@ -1,15 +1,15 @@
 import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()],
     }).compileComponents();
-  }));
+  });
 
   it('should create correctly', () => {
     const fixture = TestBed.createComponent(AppComponent);
