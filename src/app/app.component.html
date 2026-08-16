@@ -13,29 +13,29 @@
       <p class="h2">{{ SERVER_NAME }} Server Status</p>
     <br /> -->
 
-    @if (service.players()?.length) {
+    @if (service.players.value().length) {
     <section class="server-info">
-      @if (service.pulse()?.length) {
+      @if (service.pulse.value()?.length) {
       <p class="h6 text-success">
-        <strong>{{ service.pulse()[0].accounts }}</strong> active accounts from <strong>{{ service.pulse()[0].IPs }}</strong> different IPs
+        <strong>{{ service.pulse.value()[0].accounts }}</strong> active accounts from <strong>{{ service.pulse.value()[0].IPs }}</strong> different IPs
         in last <strong>{{ PULSE }}</strong> days
       </p>
       }
 
       <p class="players-count">
-        There are <span class="gold-bold">{{ service.players().length }}</span> players online
+        There are <span class="gold-bold">{{ service.players.value().length }}</span> players online
       </p>
 
       <div class="faction-balance">
         <p class="faction-score">
           <img src="assets/alliance_medium.png" />
-          {{ service.allianceCount }} - {{ service.hordeCount }}
+          {{ service.allianceCount() }} - {{ service.hordeCount() }}
           <img src="assets/horde_medium.png" />
         </p>
         <div class="population-bar">
-          <div class="population-faction-alliance alliance" [style.flex]="service.allianceCount"></div>
+          <div class="population-faction-alliance alliance" [style.flex]="service.allianceCount()"></div>
           <div class="separator"></div>
-          <div class="population-faction-horde horde" [style.flex]="service.hordeCount"></div>
+          <div class="population-faction-horde horde" [style.flex]="service.hordeCount()"></div>
         </div>
       </div>
     </section>
@@ -83,11 +83,13 @@
       </table>
     </div>
 
-    } @else { @if(service.players() === null) {
-    <p>⚠️ Error loading data from API ⚠️</p>
     } @else {
-    <p>Loading data from API...</p>
-    } }
+      @if (service.players.error()) {
+      <p>⚠️ Error loading data from API ⚠️</p>
+      } @else {
+      <p>Loading data from API...</p>
+      }
+    }
     <footer class="credits">
       <!-- I worked for free to build this software, please do not remove the credit! -->
       <p class="small">

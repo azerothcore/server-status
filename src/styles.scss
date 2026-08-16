@@ -27,6 +27,7 @@ for anyone maintaining this project.
 //  Import core + select your theme //
 // ================================ //
 
+@use 'styles/vendor';
 @use 'styles/variables';
 @use 'styles/core';
 

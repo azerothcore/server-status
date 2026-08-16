@@ -1,5 +1,6 @@
 // ======== AZEROTH THEME ========
 
+@use 'sass:color';
 @use 'variables' as *;
 @import url('https://fonts.googleapis.com/css2?family=Asul&family=Bellefair&display=swap');
 
@@ -121,7 +122,7 @@
   .server-title {
     font-size: 4rem;
     font-weight: 500;
-    color: lighten($azeroth-color-gold, 20%);
+    color: color.adjust($azeroth-color-gold, $lightness: 20%);
     text-shadow: // Outline
       -2px -2px 0 #000, /* Haut-Gauche */ 0px -2px 0 #000, /* Haut */ 2px -2px 0 #000, /* Haut-Droit */ -2px 0px 0 #000,
       /* Gauche */ 2px 0px 0 #000, /* Droit */ -2px 2px 0 #000, /* Bas-Gauche */ 0px 2px 0 #000, /* Bas */ 2px 2px 0 #000;
@@ -130,7 +131,7 @@
 
   .server-subtitle {
     font-size: 1.3rem;
-    color: lighten($azeroth-color-gold, 40%);
+    color: color.adjust($azeroth-color-gold, $lightness: 40%);
     /* margin-top: 10px; */
     font-family: $font-main;
     display: none; // Change this to show "Serveur Status" below your Server Name
@@ -174,7 +175,7 @@
     border-bottom: 2px solid $azeroth-color-gold;
 
     &:hover {
-      color: lighten($azeroth-color-gold, 15%);
+      color: color.adjust($azeroth-color-gold, $lightness: 15%);
       text-shadow: 0 0 5px rgba(191, 162, 86, 0.4);
       cursor: pointer;
       transition: color 0.3s ease, text-shadow 0.3s ease;

@@ -19,16 +19,19 @@
           "options": {
             "outputPath": "dist/server-status",
             "index": "src/index.html",
-            "polyfills": ["zone.js"],
+            "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/bootswatch/dist/cyborg/_variables.scss",
-              "./node_modules/bootstrap/scss/bootstrap.scss",
               "./node_modules/bootswatch/dist/cyborg/bootstrap.min.css",
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "sass": {
+                "silenceDeprecations": ["import"]
+              }
+            },
             "scripts": [],
             "extractLicenses": false,
             "sourceMap": true,

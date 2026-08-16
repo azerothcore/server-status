@@ -1,5 +1,7 @@
 // _variables.scss
 
+@use 'sass:color';
+
 // === GLOBAL VARIABLES ===
 $border-radius: 10px;
 $bar-height: 20px;
@@ -9,7 +11,7 @@ $font-elegant: 'Bellefair', serif;
 
 // === AZEROTH THEME VARIABLES ===
 $azeroth-color-gold: #bfa256;
-$azeroth-background: radial-gradient(circle at top, lighten(#120e08, 5%), #0a0a0a 100%);
+$azeroth-background: radial-gradient(circle at top, color.adjust(#120e08, $lightness: 5%), #0a0a0a 100%);
 $azeroth-text-color: #a0a0a0;
 $azeroth-lighter-bg: rgba(255, 255, 255, 0.05);
 $azeroth-color-alliance: #2c8bff;

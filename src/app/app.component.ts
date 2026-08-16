@@ -32,7 +32,7 @@ export class AppComponent {
    * This method is called directly from the template to update the displayed list.
    */
   protected filteredPlayers(): Player[] {
-    let players: Player[] = this.service.players() || [];
+    let players: Player[] = this.service.players.value();
 
     // === Filter players by search term (only on name and guild) ===
     if (this.searchTerm) {
@@ -97,8 +97,8 @@ export class AppComponent {
    * Calculate CSS grid-template-columns for faction bar based on player counts.
    */
   protected getFactionGrid(): string {
-    const alliance = this.service.allianceCount;
-    const horde = this.service.hordeCount;
+    const alliance = this.service.allianceCount();
+    const horde = this.service.hordeCount();
     const total = alliance + horde || 1; // Avoid division by zero
     return `${(alliance / total) * 100}% ${(horde / total) * 100}%`;
   }

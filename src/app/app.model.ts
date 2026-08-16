@@ -1,8 +1,6 @@
 export const enum SortDirection {
   ASC = 'asc',
   DESC = 'desc',
-  CUSTOM = 'custom',
-  NONE = 'none',
 }
 
 export interface Player {

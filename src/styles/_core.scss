@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use 'variables' as *;
 
 // === Reset ===
@@ -27,7 +28,7 @@
   background-color: $color-horde;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  background: linear-gradient(to bottom, $color-horde, darken($color-horde, 20%));
+  background: linear-gradient(to bottom, $color-horde, color.adjust($color-horde, $lightness: -20%));
 }
 
 .population-faction-alliance {
@@ -36,7 +37,7 @@
   background-color: $color-alliance;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  background: linear-gradient(to bottom, $color-alliance, darken($color-alliance, 20%));
+  background: linear-gradient(to bottom, $color-alliance, color.adjust($color-alliance, $lightness: -20%));
 }
 
 // === Separator Sword ===
