@@ -9,7 +9,6 @@ import { map } from './utils/zone';
   selector: 'app-root',
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [FormsModule],
 })
 export class AppComponent {
