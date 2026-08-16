@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { API_URL, PULSE_DAYS } from 'config';
 import { Observable, of } from 'rxjs';
@@ -8,9 +8,7 @@ import { PlayerType } from './utils/player.type';
 import { Pulse } from './utils/pulse.type';
 import { Races } from './utils/races';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class AppService {
   private readonly http: HttpClient = inject(HttpClient);
 
