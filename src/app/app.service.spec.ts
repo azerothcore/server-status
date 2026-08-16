@@ -1,7 +1,8 @@
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, getTestBed, tick } from '@angular/core/testing';
 
 import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { API_URL, PULSE_DAYS } from 'config';
 import { AppService, getFaction } from './app.service';
 import { Player } from './app.model';
@@ -13,7 +14,11 @@ describe('AppService', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
     }).compileComponents();
 
     injector = getTestBed();
@@ -43,9 +48,14 @@ describe('AppService', () => {
     expect(getFaction(13)).toBe('');
   });
 
-  it('players resource should work correctly', () => {
+  it('players resource should work correctly', async () => {
     const service: AppService = TestBed.inject(AppService);
-    TestBed.flushEffects();
+    TestBed.tick();
+    await Promise.resolve();
+
+    expect(service.players.value()).toEqual([]);
+    expect(service.allianceCount()).toBe(0);
+    expect(service.hordeCount()).toBe(0);
 
     const mockData: Player[] = [
       {
@@ -63,35 +73,31 @@ describe('AppService', () => {
       },
     ];
 
-    expect(service.players.value()).toEqual([]);
-    expect(service.allianceCount()).toBe(0);
-    expect(service.hordeCount()).toBe(0);
-
     const req = httpMock.expectOne(`${API_URL}/characters/online`);
     expect(req.request.method).toBe('GET');
     req.flush(mockData);
-    TestBed.flushEffects();
+    await Promise.resolve();
+    TestBed.tick();
 
     expect(service.players.value()).toEqual([{ ...mockData[0], faction: 'alliance' }]);
     expect(service.allianceCount()).toBe(1);
     expect(service.hordeCount()).toBe(0);
   });
 
-  it('pulse resource should work correctly', () => {
+  it('pulse resource should work correctly', async () => {
     const service: AppService = TestBed.inject(AppService);
-    TestBed.flushEffects();
+    TestBed.tick();
+    await Promise.resolve();
 
-    const mockData: Pulse = {
-      accounts: 3,
-      IPs: 1,
-    };
+    const mockData: Pulse = { accounts: 3, IPs: 1 };
 
     expect(service.pulse.value()).toEqual([]);
 
     const req = httpMock.expectOne(`${API_URL}/auth/pulse/${PULSE_DAYS}`);
     expect(req.request.method).toBe('GET');
     req.flush(mockData);
-    TestBed.flushEffects();
+    await Promise.resolve();
+    TestBed.tick();
 
     expect(service.pulse.value()).toEqual(mockData);
   });
