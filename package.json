@@ -31,12 +31,12 @@
     "@angular/cli": "22.1.4",
     "@angular/compiler-cli": "22.1.2",
     "@angular/language-service": "22.1.2",
-    "@types/jasminewd2": "2.0.3",
-    "@types/node": "22.14.0",
-    "jsdom": "29.1.1",
+    "@types/jasminewd2": "2.0.13",
+    "@types/node": "26.2.0",
+    "jsdom": "30.0.1",
     "protractor": "7.0.0",
-    "ts-node": "7.0.0",
-    "typescript": "6.0.3",
-    "vitest": "4.1.9"
+    "ts-node": "10.9.2",
+    "typescript": "7.0.2",
+    "vitest": "4.1.10"
   }
 }
